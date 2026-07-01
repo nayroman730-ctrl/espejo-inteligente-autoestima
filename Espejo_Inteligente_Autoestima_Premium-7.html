@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espejo Inteligente de Autoestima</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#6d28d9,#60a5fa);color:#222}
+.wrap{max-width:850px;margin:20px auto;background:#fff;border-radius:20px;padding:25px;box-shadow:0 8px 25px rgba(0,0,0,.25)}
+h1,h2{text-align:center;color:#6d28d9}
+.mirror{text-align:center;font-size:90px}
+.card{background:#f5f3ff;padding:15px;border-radius:15px;margin:15px 0}
+button{width:100%;padding:12px;margin:6px 0;border:none;border-radius:10px;background:#6d28d9;color:#fff;font-size:16px}
+progress{width:100%;height:22px}
+#res{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="mirror">🪞</div>
+<h1>Espejo Inteligente de Autoestima</h1>
+
+<div class="card">
+<h2>¿Qué es la autoestima?</h2>
+<p>La autoestima es la valoración que una persona tiene de sí misma. Una autoestima saludable ayuda a tomar decisiones, enfrentar dificultades y reconocer las propias fortalezas.</p>
+</div>
+
+<div class="card">
+<h2>Tipos de autoestima</h2>
+<ul>
+<li><b>Alta:</b> Confianza, seguridad y aceptación.</li>
+<li><b>Media:</b> Hay confianza, pero algunas dudas.</li>
+<li><b>Baja:</b> Inseguridad, miedo a equivocarse y comparaciones constantes.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Mini test</h2>
+<p>Marca una respuesta por pregunta.</p>
+<p>1. ¿Reconoces tus cualidades?</p>
+<label><input type="radio" name="q1" value="2"> Sí</label><br>
+<label><input type="radio" name="q1" value="1"> A veces</label><br>
+<label><input type="radio" name="q1" value="0"> No</label>
+
+<p>2. ¿Te comparas con otras personas?</p>
+<label><input type="radio" name="q2" value="2"> Casi nunca</label><br>
+<label><input type="radio" name="q2" value="1"> Algunas veces</label><br>
+<label><input type="radio" name="q2" value="0"> Muy seguido</label>
+
+<p>3. ¿Crees que puedes lograr tus metas?</p>
+<label><input type="radio" name="q3" value="2"> Sí</label><br>
+<label><input type="radio" name="q3" value="1"> A veces</label><br>
+<label><input type="radio" name="q3" value="0"> No</label>
+
+<button onclick="evaluar()">Ver resultado</button>
+
+<div id="res" class="card">
+<h2>Resultado</h2>
+<progress id="barra" max="6" value="0"></progress>
+<p id="texto"></p>
+<h3>¿Cómo te sientes hoy?</h3>
+<button onclick="emocion('triste')">😔 Triste</button>
+<button onclick="emocion('inseguro')">😟 Inseguro/a</button>
+<button onclick="emocion('normal')">😐 Normal</button>
+<button onclick="emocion('feliz')">😊 Feliz</button>
+<div id="consejo"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Ejercicio del día</h2>
+<p>Escribe en una hoja:</p>
+<ol>
+<li>Tres cualidades que tienes.</li>
+<li>Dos logros de los que te sientas orgulloso.</li>
+<li>Una meta para esta semana.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>Mensaje final 💜</h2>
+<p><b>"Tu valor no depende de la opinión de los demás. Eres una persona única, con fortalezas y la capacidad de seguir creciendo cada día."</b></p>
+</div>
+
+</div>
+
+<script>
+const frases=[
+"Cada día eres más fuerte.",
+"Confía en tus capacidades.",
+"Los errores también enseñan.",
+"Eres suficiente tal como eres."
+];
+function evaluar(){
+let s=0;
+["q1","q2","q3"].forEach(q=>{
+ let e=document.querySelector('input[name="'+q+'"]:checked');
+ if(e)s+=parseInt(e.value);
+});
+document.getElementById("res").style.display="block";
+document.getElementById("barra").value=s;
+let t="";
+if(s>=5)t="🌟 Autoestima saludable. ¡Sigue cuidándote!";
+else if(s>=3)t="😊 Tu autoestima puede fortalecerse con práctica.";
+else t="💜 Recuerda que puedes mejorar paso a paso. Busca apoyo en personas de confianza.";
+document.getElementById("texto").innerHTML=t;
+}
+function emocion(e){
+let c="";
+if(e=="triste")c="Respira profundamente, recuerda tres cualidades tuyas y habla con alguien de confianza.";
+if(e=="inseguro")c="Evita compararte con los demás. Tu historia es única.";
+if(e=="normal")c="Agradece tres cosas buenas que ocurrieron hoy.";
+if(e=="feliz")c="Comparte una palabra positiva con otra persona.";
+let f=frases[Math.floor(Math.random()*frases.length)];
+document.getElementById("consejo").innerHTML="<div class='card'><h3>Consejo personalizado</h3><p>"+c+"</p><p><b>Frase:</b> "+f+"</p></div>";
+}
+</script>
+</body></html>
